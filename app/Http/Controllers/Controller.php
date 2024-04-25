@@ -13,4 +13,8 @@ class Controller extends BaseController
         $title = 'Dashboard';
         return view('mahasiswa.index',compact('title'));
     }
+    public function admin(){
+        $title = 'Dashboard';
+        return view('admin.index',compact('title'));
+    }
 }

@@ -1,192 +1,347 @@
 @extends('layouts.app')
 @section('main')
-<div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3">{{$title}}</h4>
-    <div class="row">
-        <div class="col-lg-8 mb-4 order-0">
-            <div class="card">
-                <div class="d-flex align-items-end row">
-                    <div class="col-sm-7">
-                        <div class="card-body">
-                            <h5 class="card-title text-primary">Selamat Datang Mahasiswa! 🎉</h5>
-                            <p class="mb-4">
-                                You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                                your profile.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-sm-5 text-center text-sm-left">
-                        <div class="card-body pb-0 px-0 px-md-4">
-                            <img src="{{asset('assets/img/illustrations/man-with-laptop-light.png')}}" height="140"
-                                alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                                data-app-light-img="illustrations/man-with-laptop-light.png" />
-                        </div>
-                    </div>
+     <!--  Row 1 -->
+     <div class="row">
+        <div class="col-lg-8 d-flex align-items-strech">
+          <div class="card w-100">
+            <div class="card-body">
+              <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                <div class="mb-3 mb-sm-0">
+                  <h5 class="card-title fw-semibold">Sales Overview</h5>
                 </div>
+                <div>
+                  <select class="form-select">
+                    <option value="1">March 2023</option>
+                    <option value="2">April 2023</option>
+                    <option value="3">May 2023</option>
+                    <option value="4">June 2023</option>
+                  </select>
+                </div>
+              </div>
+              <div id="chart"></div>
             </div>
+          </div>
         </div>
-        <div class="col-lg-4 col-md-4 order-1">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 col-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title d-flex align-items-start justify-content-between">
-                                <div class="avatar flex-shrink-0">
-                                    <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success"
-                                        class="rounded" />
-                                </div>
-                            </div>
-                            <span class="fw-semibold d-block mb-1">Total Logbook</span>
-                            <h3 class="card-title mb-2">18</h3>
+        <div class="col-lg-4">
+          <div class="row">
+            <div class="col-lg-12">
+              <!-- Yearly Breakup -->
+              <div class="card overflow-hidden">
+                <div class="card-body p-4">
+                  <h5 class="card-title mb-9 fw-semibold">Yearly Breakup</h5>
+                  <div class="row align-items-center">
+                    <div class="col-8">
+                      <h4 class="fw-semibold mb-3">$36,358</h4>
+                      <div class="d-flex align-items-center mb-3">
+                        <span
+                          class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
+                          <i class="ti ti-arrow-up-left text-success"></i>
+                        </span>
+                        <p class="text-dark me-1 fs-3 mb-0">+9%</p>
+                        <p class="fs-3 mb-0">last year</p>
+                      </div>
+                      <div class="d-flex align-items-center">
+                        <div class="me-4">
+                          <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
+                          <span class="fs-2">2023</span>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12 col-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title d-flex align-items-start justify-content-between">
-                                <div class="avatar flex-shrink-0">
-                                    <img src="../assets/img/icons/unicons/wallet-info.png" alt="Credit Card"
-                                        class="rounded" />
-                                </div>
-                            </div>
-                            <span class="fw-semibold d-block mb-1">Logbook Review</span>
-                            <h3 class="card-title text-nowrap mb-1">4</h3>
+                        <div>
+                          <span class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"></span>
+                          <span class="fs-2">2023</span>
                         </div>
+                      </div>
                     </div>
+                    <div class="col-4">
+                      <div class="d-flex justify-content-center">
+                        <div id="breakup"></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+            <div class="col-lg-12">
+              <!-- Monthly Earnings -->
+              <div class="card">
+                <div class="card-body">
+                  <div class="row alig n-items-start">
+                    <div class="col-8">
+                      <h5 class="card-title mb-9 fw-semibold"> Monthly Earnings </h5>
+                      <h4 class="fw-semibold mb-3">$6,820</h4>
+                      <div class="d-flex align-items-center pb-1">
+                        <span
+                          class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
+                          <i class="ti ti-arrow-down-right text-danger"></i>
+                        </span>
+                        <p class="text-dark me-1 fs-3 mb-0">+9%</p>
+                        <p class="fs-3 mb-0">last year</p>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex justify-content-end">
+                        <div
+                          class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
+                          <i class="ti ti-currency-dollar fs-6"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="earning"></div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-    <div class="card" style="padding-right:3px; padding-left:3px; padding-bottom:3px">
-        <h5 class="card-header">Logbook Recent</h5>
-        <div class="table-responsive text-nowrap">
-            <table class="table table-bordered table-hover">
-                <thead class="table-primary">
-                    <tr>
-                        <th>Date</th>
-                        <th>Tools</th>
-                        <th>Safety</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>React Project</strong></td>
-                        <td>Barry Hunter</td>
-                        <td>
-                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                    class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                                    <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                                </li>
-                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                    class="avatar avatar-xs pull-up" title="Sophia Wilkerson">
-                                    <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                                </li>
-                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                    class="avatar avatar-xs pull-up" title="Christina Parker">
-                                    <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                                </li>
-                            </ul>
-                        </td>
-                        <td>
-                            <span class="badge bg-label-success me-1">Reviewed</span>
-                            <span class="badge bg-label-warning me-1">Pending</span>
-                        </td>
-                        <td>
-                            <div class="d-flex">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    <i class='bx bxs-detail'></i>
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">View</h1>
-                                                
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label for="exampleFormControlInput1" class="form-label">Tools
-                                                            Used</label>
-                                                        <input type="text" class="form-control"
-                                                            id="exampleFormControlInput1" name="tools_used">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label for="exampleFormControlInput1" class="form-label">Safety
-                                                            Point</label>
-                                                        <input type="text" class="form-control"
-                                                            id="exampleFormControlInput1" name="safety_point">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label for="exampleFormControlInput1" class="form-label">Problem
-                                                            Solf/Kaizen Point</label>
-                                                        <input type="text" class="form-control"
-                                                            id="exampleFormControlInput1"
-                                                            name="problem_solf_kaizen_point">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label for="exampleFormControlInput1"
-                                                            class="form-label">Hyarihatto</label>
-                                                        <input type="text" class="form-control"
-                                                            id="exampleFormControlInput1" name="hyarihatto">
-                                                    </div>
-                                                </div>
-                                                <div class="mb-2">
-                                                    <label for="exampleFormControlTextarea1"
-                                                        class="form-label">Description</label>
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                        rows="3" name="description"></textarea>
-                                                </div>
-                                                <div class="mb-2">
-                                                    <label for="exampleFormControlTextarea1" class="form-label">Point To
-                                                        Remember</label>
-                                                    <div class="row">
-                                                        <div class="col-3">
-                                                            <input class="form-control" type="text" value="1.Poor"
-                                                                readonly>
-                                                        </div>
-                                                        <div class="col-9">
-                                                            <textarea class="form-control"
-                                                                id="exampleFormControlTextarea1" rows="1"
-                                                                name="point_to_remember"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-2">
-                                                    <label for="exampleFormControlTextarea1" class="form-label">Mentor
-                                                        Comments</label>
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                        rows="3" name="description"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <form action="{{url('logbook/delete/')}}" method="post" id="delLog">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-danger btn-sm" type="button" onclick="funcDelLog()">
-                                        <i class='bx bxs-trash'></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 d-flex align-items-stretch">
+          <div class="card w-100">
+            <div class="card-body p-4">
+              <div class="mb-4">
+                <h5 class="card-title fw-semibold">Recent Transactions</h5>
+              </div>
+              <ul class="timeline-widget mb-0 position-relative mb-n5">
+                <li class="timeline-item d-flex position-relative overflow-hidden">
+                  <div class="timeline-time text-dark flex-shrink-0 text-end">09:30</div>
+                  <div class="timeline-badge-wrap d-flex flex-column align-items-center">
+                    <span class="timeline-badge border-2 border border-primary flex-shrink-0 my-8"></span>
+                    <span class="timeline-badge-border d-block flex-shrink-0"></span>
+                  </div>
+                  <div class="timeline-desc fs-3 text-dark mt-n1">Payment received from John Doe of $385.90</div>
+                </li>
+                <li class="timeline-item d-flex position-relative overflow-hidden">
+                  <div class="timeline-time text-dark flex-shrink-0 text-end">10:00 am</div>
+                  <div class="timeline-badge-wrap d-flex flex-column align-items-center">
+                    <span class="timeline-badge border-2 border border-info flex-shrink-0 my-8"></span>
+                    <span class="timeline-badge-border d-block flex-shrink-0"></span>
+                  </div>
+                  <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">New sale recorded <a
+                      href="javascript:void(0)" class="text-primary d-block fw-normal">#ML-3467</a>
+                  </div>
+                </li>
+                <li class="timeline-item d-flex position-relative overflow-hidden">
+                  <div class="timeline-time text-dark flex-shrink-0 text-end">12:00 am</div>
+                  <div class="timeline-badge-wrap d-flex flex-column align-items-center">
+                    <span class="timeline-badge border-2 border border-success flex-shrink-0 my-8"></span>
+                    <span class="timeline-badge-border d-block flex-shrink-0"></span>
+                  </div>
+                  <div class="timeline-desc fs-3 text-dark mt-n1">Payment was made of $64.95 to Michael</div>
+                </li>
+                <li class="timeline-item d-flex position-relative overflow-hidden">
+                  <div class="timeline-time text-dark flex-shrink-0 text-end">09:30 am</div>
+                  <div class="timeline-badge-wrap d-flex flex-column align-items-center">
+                    <span class="timeline-badge border-2 border border-warning flex-shrink-0 my-8"></span>
+                    <span class="timeline-badge-border d-block flex-shrink-0"></span>
+                  </div>
+                  <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">New sale recorded <a
+                      href="javascript:void(0)" class="text-primary d-block fw-normal">#ML-3467</a>
+                  </div>
+                </li>
+                <li class="timeline-item d-flex position-relative overflow-hidden">
+                  <div class="timeline-time text-dark flex-shrink-0 text-end">09:30 am</div>
+                  <div class="timeline-badge-wrap d-flex flex-column align-items-center">
+                    <span class="timeline-badge border-2 border border-danger flex-shrink-0 my-8"></span>
+                    <span class="timeline-badge-border d-block flex-shrink-0"></span>
+                  </div>
+                  <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">New arrival recorded 
+                  </div>
+                </li>
+                <li class="timeline-item d-flex position-relative overflow-hidden">
+                  <div class="timeline-time text-dark flex-shrink-0 text-end">12:00 am</div>
+                  <div class="timeline-badge-wrap d-flex flex-column align-items-center">
+                    <span class="timeline-badge border-2 border border-success flex-shrink-0 my-8"></span>
+                  </div>
+                  <div class="timeline-desc fs-3 text-dark mt-n1">Payment Done</div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-    </div>
-</div>
-<!-- / Content -->
+        <div class="col-lg-8 d-flex align-items-stretch">
+          <div class="card w-100">
+            <div class="card-body p-4">
+              <h5 class="card-title fw-semibold mb-4">Recent Transactions</h5>
+              <div class="table-responsive">
+                <table class="table text-nowrap mb-0 align-middle">
+                  <thead class="text-dark fs-4">
+                    <tr>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Id</h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Assigned</h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Name</h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Priority</h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Budget</h6>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="border-bottom-0"><h6 class="fw-semibold mb-0">1</h6></td>
+                      <td class="border-bottom-0">
+                          <h6 class="fw-semibold mb-1">Sunil Joshi</h6>
+                          <span class="fw-normal">Web Designer</span>                          
+                      </td>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">Elite Admin</p>
+                      </td>
+                      <td class="border-bottom-0">
+                        <div class="d-flex align-items-center gap-2">
+                          <span class="badge bg-primary rounded-3 fw-semibold">Low</span>
+                        </div>
+                      </td>
+                      <td class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 fs-4">$3.9</h6>
+                      </td>
+                    </tr> 
+                    <tr>
+                      <td class="border-bottom-0"><h6 class="fw-semibold mb-0">2</h6></td>
+                      <td class="border-bottom-0">
+                          <h6 class="fw-semibold mb-1">Andrew McDownland</h6>
+                          <span class="fw-normal">Project Manager</span>                          
+                      </td>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">Real Homes WP Theme</p>
+                      </td>
+                      <td class="border-bottom-0">
+                        <div class="d-flex align-items-center gap-2">
+                          <span class="badge bg-secondary rounded-3 fw-semibold">Medium</span>
+                        </div>
+                      </td>
+                      <td class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 fs-4">$24.5k</h6>
+                      </td>
+                    </tr> 
+                    <tr>
+                      <td class="border-bottom-0"><h6 class="fw-semibold mb-0">3</h6></td>
+                      <td class="border-bottom-0">
+                          <h6 class="fw-semibold mb-1">Christopher Jamil</h6>
+                          <span class="fw-normal">Project Manager</span>                          
+                      </td>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">MedicalPro WP Theme</p>
+                      </td>
+                      <td class="border-bottom-0">
+                        <div class="d-flex align-items-center gap-2">
+                          <span class="badge bg-danger rounded-3 fw-semibold">High</span>
+                        </div>
+                      </td>
+                      <td class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 fs-4">$12.8k</h6>
+                      </td>
+                    </tr>      
+                    <tr>
+                      <td class="border-bottom-0"><h6 class="fw-semibold mb-0">4</h6></td>
+                      <td class="border-bottom-0">
+                          <h6 class="fw-semibold mb-1">Nirav Joshi</h6>
+                          <span class="fw-normal">Frontend Engineer</span>                          
+                      </td>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">Hosting Press HTML</p>
+                      </td>
+                      <td class="border-bottom-0">
+                        <div class="d-flex align-items-center gap-2">
+                          <span class="badge bg-success rounded-3 fw-semibold">Critical</span>
+                        </div>
+                      </td>
+                      <td class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 fs-4">$2.4k</h6>
+                      </td>
+                    </tr>                       
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-xl-3">
+          <div class="card overflow-hidden rounded-2">
+            <div class="position-relative">
+              <a href="javascript:void(0)"><img src="../assets/images/products/s4.jpg" class="card-img-top rounded-0" alt="..."></a>
+              <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>                      </div>
+            <div class="card-body pt-3 p-4">
+              <h6 class="fw-semibold fs-4">Boat Headphone</h6>
+              <div class="d-flex align-items-center justify-content-between">
+                <h6 class="fw-semibold fs-4 mb-0">$50 <span class="ms-2 fw-normal text-muted fs-3"><del>$65</del></span></h6>
+                <ul class="list-unstyled d-flex align-items-center mb-0">
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+          <div class="card overflow-hidden rounded-2">
+            <div class="position-relative">
+              <a href="javascript:void(0)"><img src="../assets/images/products/s5.jpg" class="card-img-top rounded-0" alt="..."></a>
+              <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>                      </div>
+            <div class="card-body pt-3 p-4">
+              <h6 class="fw-semibold fs-4">MacBook Air Pro</h6>
+              <div class="d-flex align-items-center justify-content-between">
+                <h6 class="fw-semibold fs-4 mb-0">$650 <span class="ms-2 fw-normal text-muted fs-3"><del>$900</del></span></h6>
+                <ul class="list-unstyled d-flex align-items-center mb-0">
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+          <div class="card overflow-hidden rounded-2">
+            <div class="position-relative">
+              <a href="javascript:void(0)"><img src="../assets/images/products/s7.jpg" class="card-img-top rounded-0" alt="..."></a>
+              <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>                      </div>
+            <div class="card-body pt-3 p-4">
+              <h6 class="fw-semibold fs-4">Red Valvet Dress</h6>
+              <div class="d-flex align-items-center justify-content-between">
+                <h6 class="fw-semibold fs-4 mb-0">$150 <span class="ms-2 fw-normal text-muted fs-3"><del>$200</del></span></h6>
+                <ul class="list-unstyled d-flex align-items-center mb-0">
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+          <div class="card overflow-hidden rounded-2">
+            <div class="position-relative">
+              <a href="javascript:void(0)"><img src="../assets/images/products/s11.jpg" class="card-img-top rounded-0" alt="..."></a>
+              <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>                      </div>
+            <div class="card-body pt-3 p-4">
+              <h6 class="fw-semibold fs-4">Cute Soft Teddybear</h6>
+              <div class="d-flex align-items-center justify-content-between">
+                <h6 class="fw-semibold fs-4 mb-0">$285 <span class="ms-2 fw-normal text-muted fs-3"><del>$345</del></span></h6>
+                <ul class="list-unstyled d-flex align-items-center mb-0">
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 @endsection

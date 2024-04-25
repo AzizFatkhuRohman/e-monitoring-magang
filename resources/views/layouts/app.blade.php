@@ -1,198 +1,221 @@
-<!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
-	data-assets-path="{{asset('assets/')}}" data-template="vertical-menu-template-free">
+<!doctype html>
+<html lang="en">
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
-	<title>AKTI {{$title}}</title>
-	<meta name="description" content="" />
-	<link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon/logo-akti.png')}}" />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link
-		href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-		rel="stylesheet" />
-	<link rel="stylesheet" href="{{asset('assets/vendor/fonts/boxicons.css')}}" />
-	<link rel="stylesheet" href="{{asset('assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
-	<link rel="stylesheet" href="{{asset('assets/vendor/css/theme-default.css')}}"
-		class="template-customizer-theme-css" />
-	<link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
-	<link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
-	<link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
-	<script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
-	<script src="{{asset('assets/js/config.js')}}"></script>
-	{{-- Data Table --}}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Magang {{$title}}</title>
+	<link rel="shortcut icon" type="image/png" href="{{asset('assets/images/logos/favicon.png')}}" />
+	<link rel="stylesheet" href="{{asset('assets/css/styles.min.css')}}" />
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-	<script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
-	<script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
-	{{--
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-	--}}
-	{{--
-	<link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css"> --}}
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.datatables.net/2.0.4/js/dataTables.js"></script>
+	<script src="https://cdn.datatables.net/2.0.4/js/dataTables.bootstrap5.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.0.4/css/dataTables.bootstrap5.css">
+	{{-- Sweet Alert --}}
+	<script src="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
+"></script>
+	<link href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
+" rel="stylesheet">
 </head>
 
 <body>
-	<!-- Layout wrapper -->
-	<div class="layout-wrapper layout-content-navbar">
-		<div class="layout-container">
-			<!-- Menu -->
-
-			<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-				<div class="app-brand demo">
-					<a href="index.html" class="app-brand-link">
-						<img src="{{asset('assets/img/favicon/logo-akti.png')}}" class="app-brand-logo demo" alt=""
-							style="width: 150px">
+	<!--  Body Wrapper -->
+	<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+		data-sidebar-position="fixed" data-header-position="fixed">
+		<!-- Sidebar Start -->
+		<aside class="left-sidebar">
+			<!-- Sidebar scroll-->
+			<div>
+				<div class="brand-logo d-flex align-items-center justify-content-between">
+					<a href="#" class="text-nowrap logo-img">
+						<img src="{{asset('assets/images/logos/logo-akti.png')}}" width="180" alt="" />
 					</a>
-
-					<a href="javascript:void(0);"
-						class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-						<i class="bx bx-chevron-left bx-sm align-middle"></i>
-					</a>
-				</div>
-
-				<div class="menu-inner-shadow"></div>
-
-				<ul class="menu-inner py-1">
-					<!-- Dashboard -->
-					<li class="menu-item {{ $title == 'Dashboard' ? 'active' : '' }}">
-						<a href="{{url('dashboard-student')}}" class="menu-link">
-							<i class="menu-icon tf-icons bx bxs-dashboard"></i>
-							<div data-i18n="Analytics">Dashboard</div>
-						</a>
-					</li>
-
-					<li class="menu-header small text-uppercase">
-						<span class="menu-header-text">Pages</span>
-					</li>
-					<li class="menu-item {{ $title == 'Logbook' ? 'active' : '' }}">
-						<a href="{{url('logbook')}}" class="menu-link">
-							<i class='menu-icon tf-icons bx bxs-book-bookmark'></i>
-							<div data-i18n="Analytics">Logbook</div>
-						</a>
-					</li>
-					<li class="menu-item {{ $title == 'Assessment Notes' ? 'active' : '' }}">
-						<a href="{{url('assessment-notes')}}" class="menu-link">
-							<i class='menu-icon tf-icons bx bxs-notepad'></i>
-							<div data-i18n="Analytics">Assessment Notes</div>
-						</a>
-					</li>
-					<li class="menu-item {{ $title == 'User Account' | $title == 'Student Account' ? 'active' : '' }}">
-						<a href="javascript:void(0);" class="menu-link menu-toggle">
-							<i class='menu-icon tf-icons bx bx-user-circle'></i>
-							<div data-i18n="Layouts">Account</div>
-						</a>
-
-						<ul class="menu-sub">
-							<li class="menu-item {{$title == 'Profile Student' ? 'active open' : ''}}">
-								<a href="{{url('profile-student')}}" class="menu-link">
-									<div data-i18n="Without menu">Profile Student</div>
-								</a>
-							</li>
-							<li class="menu-item {{$title == 'Student Account' ? 'active open' : ''}}">
-								<a href="{{url('student-account')}}" class="menu-link">
-									<div data-i18n="Without navbar">Student Account</div>
-								</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</aside>
-			<!-- / Menu -->
-
-			<!-- Layout container -->
-			<div class="layout-page">
-				<!-- Navbar -->
-
-				<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-					id="layout-navbar">
-					<div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-						<a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-							<i class="bx bx-menu bx-sm"></i>
-						</a>
+					<div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+						<i class="ti ti-x fs-8"></i>
 					</div>
+				</div>
+				<!-- Sidebar navigation-->
+				<nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+					<ul id="sidebarnav">
+						<li class="nav-small-cap">
+							<i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+							<span class="hide-menu">Home</span>
+						</li>
+						{{-- Menu admin --}}
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="{{url('admin/dashboard')}}" aria-expanded="false">
+								<span>
+									<i class="ti ti-layout-dashboard"></i>
+								</span>
+								<span class="hide-menu">Dashboard</span>
+							</a>
+						</li>
+						<li class="nav-small-cap">
+							<i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+							<span class="hide-menu">Menu Mahasiswa</span>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="{{url('admin/mahasiswa')}}" aria-expanded="false">
+								<span>
+									<i class="ti ti-user"></i>
+								</span>
+								<span class="hide-menu">Mahasiswa</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="{{url('admin/dosen-pembimbing')}}" aria-expanded="false">
+								<span>
+									<i class="ti ti-user"></i>
+								</span>
+								<span class="hide-menu">Dosen Pembimbing</span>
+							</a>
+						</li>
+						<li class="nav-small-cap">
+							<i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+							<span class="hide-menu">Menu Grup Leader</span>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="{{url('admin/grup-leader')}}" aria-expanded="false">
+								<span>
+									<i class="ti ti-user"></i>
+								</span>
+								<span class="hide-menu">Grup Leader</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="{{url('admin/mentor-vokasi')}}" aria-expanded="false">
+								<span>
+									<i class="ti ti-user"></i>
+								</span>
+								<span class="hide-menu">Mentor Vokasi</span>
+							</a>
+						</li>
+						<li class="nav-small-cap">
+							<i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+							<span class="hide-menu">Menu Departement</span>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="{{url('admin/departement')}}" aria-expanded="false">
+								<span>
+									<i class="ti ti-user"></i>
+								</span>
+								<span class="hide-menu">Department</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="{{url('admin/departement-head')}}" aria-expanded="false">
+								<span>
+									<i class="ti ti-user"></i>
+								</span>
+								<span class="hide-menu">Department Head</span>
+							</a>
+						</li>
+						<li class="nav-small-cap">
+							<i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+							<span class="hide-menu">Menu Section</span>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="{{url('admin/section')}}" aria-expanded="false">
+								<span>
+									<i class="ti ti-user"></i>
+								</span>
+								<span class="hide-menu">Section</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="{{url('admin/section-head')}}" aria-expanded="false">
+								<span>
+									<i class="ti ti-user"></i>
+								</span>
+								<span class="hide-menu">Section Head</span>
+							</a>
+						</li>
 
-					<div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-
-
-						<ul class="navbar-nav flex-row align-items-center ms-auto">
-
-							<!-- User -->
-							<li class="nav-item">
-								<form action="{{url('logout')}}" method="post">
-									<button class="btn btn-danger btn-sm rounded" type="button" onclick="logoutFunc()">
-										<i class='bx bx-power-off'></i>
-									</button>
-								</form>
+					</ul>
+				</nav>
+				<!-- End Sidebar navigation -->
+			</div>
+			<!-- End Sidebar scroll-->
+		</aside>
+		<!--  Sidebar End -->
+		<!--  Main wrapper -->
+		<div class="body-wrapper">
+			<!--  Header Start -->
+			<header class="app-header">
+				<nav class="navbar navbar-expand-lg navbar-light">
+					<ul class="navbar-nav">
+						<li class="nav-item d-block d-xl-none">
+							<a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse"
+								href="javascript:void(0)">
+								<i class="ti ti-menu-2"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link nav-icon-hover" href="javascript:void(0)">
+								<i class="ti ti-bell-ringing"></i>
+								<div class="notification bg-primary rounded-circle"></div>
+							</a>
+						</li>
+					</ul>
+					<div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+						<ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+							<li class="nav-item dropdown">
+								<a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
+									data-bs-toggle="dropdown" aria-expanded="false">
+									<img src="{{asset('assets/images/profile/user-1.jpg')}}" alt="" width="35"
+										height="35" class="rounded-circle">
+								</a>
+								<div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
+									aria-labelledby="drop2">
+									<div class="message-body">
+										<a href="javascript:void(0)"
+											class="d-flex align-items-center gap-2 dropdown-item">
+											<i class="ti ti-user fs-6"></i>
+											<p class="mb-0 fs-3">My Profile</p>
+										</a>
+										<a href="javascript:void(0)"
+											class="d-flex align-items-center gap-2 dropdown-item">
+											<i class="ti ti-mail fs-6"></i>
+											<p class="mb-0 fs-3">My Account</p>
+										</a>
+										<a href="javascript:void(0)"
+											class="d-flex align-items-center gap-2 dropdown-item">
+											<i class="ti ti-list-check fs-6"></i>
+											<p class="mb-0 fs-3">My Task</p>
+										</a>
+										<a href="./authentication-login.html"
+											class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+									</div>
+								</div>
 							</li>
-							<!--/ User -->
 						</ul>
 					</div>
 				</nav>
-
-				<!-- / Navbar -->
-				<div class="content-wrapper">
-					@yield('main')
-					<!-- Footer -->
-					<footer class="content-footer footer bg-footer-theme">
-						<div
-							class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-							<div class="mb-2 mb-md-0">
-								©
-								<script>
-									document.write(new Date().getFullYear());
-								</script>
-								, made with ❤️ by
-								<a href="https://themeselection.com" target="_blank"
-									class="footer-link fw-bolder">AKTI</a>
-							</div>
-						</div>
-					</footer>
-					<!-- / Footer -->
-
-					<div class="content-backdrop fade"></div>
+			</header>
+			<!--  Header End -->
+			<div class="container-fluid">
+				@yield('main')
+				<div class="py-6 px-6 text-center">
+					<p class="mb-0 fs-4">Design and Developed by <a href="https://adminmart.com/" target="_blank"
+							class="pe-1 text-primary text-decoration-underline">AdminMart.com</a> Distributed by <a
+							href="https://themewagon.com">ThemeWagon</a></p>
 				</div>
-				<!-- Content wrapper -->
 			</div>
-			<!-- / Layout page -->
 		</div>
-
-		<!-- Overlay -->
-		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
-	<!-- / Layout wrapper -->
-	<!-- Core JS -->
-	<!-- build:js assets/vendor/js/core.js -->
 	<script>
-		function logoutFunc(){
-			alert('Hello')
-		}
+		new DataTable('#table')
 	</script>
-	<script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
-	<script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
-	<script src="{{asset('assets/vendor/js/bootstrap.js')}}"></script>
-	<script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
-
-	<script src="{{asset('assets/vendor/js/menu.js')}}"></script>
-	<!-- endbuild -->
-
-	<!-- Vendors JS -->
-	<script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
-
-	<!-- Main JS -->
-	<script src="{{asset('assets/js/main.js')}}"></script>
-
-	<!-- Page JS -->
-	<script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
-	<script src="{{asset('assets/js/pages-account-settings-account.js')}}"></script>
-
-	<!-- Place this tag in your head or just before your close body tag. -->
-	<script async defer src="https://buttons.github.io/buttons.js"></script>
+	<script src="{{asset('assets/libs/jquery/dist/jquery.min.js')}}"></script>
+	<script src="{{asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+	<script src="{{asset('assets/js/sidebarmenu.js')}}"></script>
+	<script src="{{asset('assets/js/app.min.js')}}"></script>
+	<script src="{{asset('assets/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
+	<script src="{{asset('assets/libs/simplebar/dist/simplebar.js')}}"></script>
+	<script src="{{asset('assets/js/dashboard.js')}}"></script>
 </body>
 
 </html>
