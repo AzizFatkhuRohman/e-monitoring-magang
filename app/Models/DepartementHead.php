@@ -10,7 +10,7 @@ class DepartementHead extends Model
 {
     use HasFactory, HasUuids;
     protected $fillable = [
-        'departement_id','nama_departement_head','lokasi'
+        'departement_id','nama_departement_head','nomor_induk_pegawai','lokasi'
     ];
     public function departement(){
         return $this->belongsTo(Departement::class);

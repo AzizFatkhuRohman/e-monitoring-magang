@@ -53,6 +53,6 @@ class GrupLeaderController extends Controller
     }
     public function delete_grup_leader($id){
         $this->grup_leader->Del($id);
-        return redirect('admin/grup_leader')->with('delete','Data Berhasil Dihapus');
+        return redirect('admin/grup-leader')->with('delete','Data Berhasil Dihapus');
     }
 }

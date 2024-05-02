@@ -15,4 +15,21 @@ class DosenPembimbing extends Model
         'gelar',
         'status'
     ];
+    public function mahasiswa()
+    {
+        return $this->hasMany(Mahasiswa::class);
+    }
+    public function Post($data)
+    {
+        return $this->create($data);
+    }
+    public function Show(){
+        return $this->latest()->get();
+    }
+    public function Put($id,$data){
+        return $this->find($id)->update($data);
+    }
+    public function Del($id){
+        return $this->find($id)->delete();
+    }
 }

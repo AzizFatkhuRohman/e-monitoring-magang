@@ -12,7 +12,8 @@ class SectionHead extends Model
     protected $fillable = [
         'section_id',
         'departement_head_id',
-        'nama_section_head'
+        'nama_section_head',
+        'nomor_induk_pegawai'
     ];
     public function departementHead()
     {

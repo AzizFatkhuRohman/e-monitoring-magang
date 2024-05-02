@@ -13,6 +13,7 @@ class MentorVokasi extends Model
         'grup_leader_id',
         'nama_mentor_vokasi',
         'alamat_email_mentor',
+        'nomor_induk_pegawai',
         'no_telp_mentor',
     ];
     public function grupLeader(){

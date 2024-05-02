@@ -17,7 +17,7 @@ class DepartementController extends Controller
     {
         $title = 'Departement';
         $data = $this->departement->Show();
-        return view('admin.departement', compact('title','data'));
+        return view('admin.departement.departement', compact('title','data'));
     }
     public function add_departement(Request $request)
     {

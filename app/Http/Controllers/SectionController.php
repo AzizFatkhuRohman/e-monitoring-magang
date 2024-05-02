@@ -15,11 +15,13 @@ class SectionController extends Controller
     public function section(){
         $title = 'Section';
         $data = $this->section->Show();
-        return view('admin.section',compact('title','data'));
+        return view('admin.section.section',compact('title','data'));
     }
     public function add_section(Request $request){
         $val = Validator::make($request->all(),[
             'section'=>'required'
+        ],[
+            'section.required'=>'Section Tidak Boleh Kosong'
         ]);
         if ($val->fails()) {
             return redirect()->back()->withErrors($val);
@@ -32,6 +34,8 @@ class SectionController extends Controller
     public function edit_section($id, Request $request){
         $val = Validator::make($request->all(),[
             'section'=>'required'
+        ],[
+            'section.required'=>'Section Tidak Boleh Kosong'
         ]);
         if ($val->fails()) {
             return redirect('admin/section')->withErrors($val);
