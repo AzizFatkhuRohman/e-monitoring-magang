@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('departements', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->references('id')->on('users')->onUpdate('cascade');
             $table->string('departement');
+            $table->string('lokasi');
             $table->timestamps();
         });
     }

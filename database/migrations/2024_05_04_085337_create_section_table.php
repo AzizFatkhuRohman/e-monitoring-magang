@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departement_heads', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('departement_id')->references('id')->on('departements')->onDelete('cascade');
-            $table->string('nama_departement_head');
-            $table->string('lokasi');
+            $table->foreignUuid('user_id')->references('id')->on('users')->onUpdate('cascade');
+            $table->foreignUuid('departement_id')->references('id')->on('departements')->onUpdate('cascade');
+            $table->string('section');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departement_heads');
+        Schema::dropIfExists('sections');
     }
 };

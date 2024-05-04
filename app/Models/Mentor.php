@@ -6,25 +6,29 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Departement extends Model
+class Mentor extends Model
 {
     use HasFactory, HasUuids;
     protected $fillable = [
-        'id',
         'user_id',
-        'departement',
-        'lokasi'
+        'section_id',
+        'no_telp',
+        'leader'
     ];
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the section that owns the mentor.
+     */
     public function section()
     {
-        return $this->hasMany(Section::class);
+        return $this->belongsTo(Section::class);
     }
-    public function evaluasiEmpatBulan()
+    public function mahasiswa()
     {
-        return $this->hasMany(EvaluasiEmpatBulan::class);
+        return $this->hasMany(Mahasiswa::class);
     }
 }

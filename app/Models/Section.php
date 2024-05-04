@@ -8,23 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
-    use HasFactory,HasUuids;
+    use HasFactory, HasUuids;
     protected $fillable = [
+        'user_id',
+        'departement_id',
         'section'
     ];
-    public function sectionHead(){
-        return $this->hasMany(SectionHead::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
-    public function Show(){
-        return $this->latest()->get();
+    public function departement(){
+        return $this->belongsTo(Departement::class);
     }
-    public function Post($data){
-        return $this->create($data);
-    }
-    public function Put($id,$data){
-        return $this->find($id)->update($data);
-    }
-    public function Del($id){
-        return $this->find($id)->delete();
+    public function mentor()
+    {
+        return $this->hasMany(Mentor::class);
     }
 }

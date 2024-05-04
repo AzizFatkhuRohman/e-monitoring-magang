@@ -19,7 +19,7 @@ class Controller extends BaseController
         $title = 'Dashboard';
         return view('admin.index', compact('title'));
     }
-    public function departement_head()
+    public function departement()
     {
         $title = 'Dashboard';
         return view('departement-head.index', compact('title'));

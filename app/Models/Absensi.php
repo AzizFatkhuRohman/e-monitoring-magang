@@ -6,25 +6,24 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Departement extends Model
+class Absensi extends Model
 {
     use HasFactory, HasUuids;
+    protected $table = 'absensi';
     protected $fillable = [
-        'id',
-        'user_id',
-        'departement',
-        'lokasi'
+        'mahasiswa_id',
+        'keterangan',
+        'deskripsi',
+        'status',
+        'bukti'
     ];
-    public function user()
+    public function mahasiswa()
     {
-        return $this->belongsTo(User::class);
-    }
-    public function section()
-    {
-        return $this->hasMany(Section::class);
+        return $this->belongsTo(Mahasiswa::class);
     }
     public function evaluasiEmpatBulan()
     {
         return $this->hasMany(EvaluasiEmpatBulan::class);
     }
+
 }

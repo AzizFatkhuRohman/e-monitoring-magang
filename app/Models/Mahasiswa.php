@@ -5,60 +5,36 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Mahasiswa extends Model
 {
     use HasFactory, HasUuids;
+    protected $table = 'mahasiswa';
     protected $fillable = [
-        'dosen_pembimbing_id',
-        'mentor_vokasi_id',
-        'nama_mahasiswa',
-        'nomor_induk_mahasiswa',
-        'no_registrasi_vokasi',
-        'batch_vokasi',
-        'shop',
+        'user_id',
+        'mentor_id',
+        'noreg_vokasi',
+        'batch',
         'divisi',
+        'shop',
         'line',
         'pos',
         'shift'
     ];
-    public function mentorVokasi()
-    {
-        return $this->belongsTo(MentorVokasi::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
-    public function dosenPembimbing()
+    public function mentor()
     {
-        return $this->belongsTo(DosenPembimbing::class);
+        return $this->belongsTo(Mentor::class);
     }
-    public function Show()
+    public function absensi()
     {
-        return $this->with('mentorVokasi', 'dosenPembimbing')->latest()->get();
+        return $this->hasMany(Absensi::class);
     }
-    public function Post($data)
+    public function logbook()
     {
-        return $this->create($data);
+        return $this->hasMany(Logbook::class);
     }
-    public function Put($id, $data)
-    {
-        return $this->find($id)->update($data);
-    }
-    public function Del($id)
-    {
-        return $this->find($id)->delete();
-    }
-    public function WhereDosen($no)
-    {
-        return $this->with('dosenPembimbing')->whereHas('dosenPembimbing', function ($query) use ($no) {
-            $query->where('nomor_induk_pegawai', $no);
-        })->get();
-    }
-    public function WhereDept()
-    {
-        $deptNo = Auth::user()->nomor_induk;
-        $mentor = MentorVokasi::whereHas('grupLeader.sectionHead.departementHead', function ($query) use ($deptNo) {
-            $query->where('nomor_induk_pegawai', $deptNo);
-        })->latest()->first();
-        return $mentor->mahasiswa()->latest()->get();
-    }
+
 }
