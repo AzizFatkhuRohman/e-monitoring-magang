@@ -62,7 +62,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{asset('assets/js/config.js')}}"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> --}}
 	<script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
 	<script src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
 	<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
@@ -73,6 +73,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
 <link href="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 " rel="stylesheet">
+{{-- chart js --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   </head>
 
   <body>
@@ -158,93 +161,45 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
             </li>
-            <li class="menu-item {{ $title === 'Mahasiswa' || $title === 'Mentor Vokasi' || $title === 'Grup Leader' || $title === 'Dosen Pembimbing' ? 'active' : '' }}">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Manajemen Vokasi</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item {{ $title === 'Mahasiswa' ? 'active' : '' }}">
-                  <a href="{{url('admin/mahasiswa')}}" class="menu-link">
-                    <div data-i18n="Account">Mahasiswa</div>
-                  </a>
-                </li>
-                <li class="menu-item {{ $title === 'Mentor Vokasi' ? 'active' : '' }}">
-                  <a href="{{url('admin/mentor-vokasi')}}" class="menu-link">
-                    <div data-i18n="Notifications">Mentor</div>
-                  </a>
-                </li>
-                <li class="menu-item {{ $title === 'Dosen Pembimbing' ? 'active' : '' }}">
-                  <a href="{{url('admin/dosen-pembimbing')}}" class="menu-link">
-                    <div data-i18n="Account">Dosen Pembimbing</div>
-                  </a>
-                </li>
-                <li class="menu-item {{ $title === 'Grup Leader' ? 'active' : '' }}">
-                  <a href="{{url('admin/grup-leader')}}" class="menu-link">
-                    <div data-i18n="Connections">Grup Leader</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item {{ $title === 'Departement' || $title === 'Departement Head' ? 'active' : '' }}">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bxs-city"></i>
-                <div data-i18n="Authentications">Manajemen Dept</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item {{ $title === 'Departement' ? 'active' : '' }}">
-                  <a href="{{url('admin/departement')}}" class="menu-link">
-                    <div data-i18n="Basic">Departement</div>
-                  </a>
-                </li>
-                <li class="menu-item {{ $title === 'Departement Head' ? 'active' : '' }}">
-                  <a href="{{url('admin/departement-head')}}" class="menu-link">
-                    <div data-i18n="Basic">Departement Head</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item {{ $title === 'Section' || $title === 'Section Head' ? 'active' : '' }}">
-				<a href="javascript:void(0);" class="menu-link menu-toggle">
-				  <i class='menu-icon tf-icons bx bx-cube-alt'></i>
-				  <div data-i18n="Authentications">Manajemen Section</div>
-				</a>
-				<ul class="menu-sub">
-				  <li class="menu-item {{ $title === 'Section' ? 'active' : '' }}">
-					<a href="{{url('admin/section')}}" class="menu-link">
-					  <div data-i18n="Basic">Section</div>
-					</a>
-				  </li>
-				  <li class="menu-item {{ $title === 'Section Head' ? 'active' : '' }}">
-					<a href="{{url('admin/section-head')}}" class="menu-link">
-					  <div data-i18n="Basic">Section Head</div>
-					</a>
-				  </li>
-				</ul>
-			  </li>
+            
             <!-- Cards -->
             <li class="menu-item {{ $title === 'Manajemen Pengguna' ? 'active' : '' }}">
               <a href="{{url('admin/pengguna')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Basic">Manajemen Pengguna</div>
+                <div data-i18n="Basic">Pengguna</div>
               </a>
             </li>
-            <li class="menu-item {{ $title === 'Logbook Bulanan' || $title === 'Logbook Empat Bulan' ? 'active' : '' }}">
+            <li class="menu-item {{ $title === 'Mahasiswa' || $title === 'Dosen' ? 'active' : '' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-history'></i>
-                <div data-i18n="Authentications">Histori Logbook</div>
+                <div data-i18n="Authentications">Manajemen</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item {{ $title === 'Logbook' ? 'active' : '' }}">
-                <a href="{{url('admin/logbook')}}" class="menu-link">
-                  <div data-i18n="Basic">Logbook</div>
+                <li class="menu-item {{ $title === 'Mahasiswa' ? 'active' : '' }}">
+                <a href="{{url('admin/mahasiswa')}}" class="menu-link">
+                  <div data-i18n="Basic">Mahasiswa</div>
                 </a>
                 </li>
-                <li class="menu-item {{ $title === 'Logbook Empat Bulan' ? 'active' : '' }}">
-                <a href="{{url('admin/logbook-empat-bulan')}}" class="menu-link">
-                  <div data-i18n="Basic">Logbook Empat Bulan</div>
+                <li class="menu-item {{ $title === 'Dosen' ? 'active' : '' }}">
+                <a href="{{url('admin/dosen')}}" class="menu-link">
+                  <div data-i18n="Basic">Dosen</div>
                 </a>
                 </li>
+                <li class="menu-item {{ $title === 'Mentor' ? 'active' : '' }}">
+                  <a href="{{url('admin/mentor')}}" class="menu-link">
+                    <div data-i18n="Basic">Mentor</div>
+                  </a>
+                  </li>
+                  <li class="menu-item {{ $title === 'Section' ? 'active' : '' }}">
+                    <a href="{{url('admin/section')}}" class="menu-link">
+                      <div data-i18n="Basic">Section</div>
+                    </a>
+                    </li>
+                    <li class="menu-item {{ $title === 'Departement' ? 'active' : '' }}">
+                      <a href="{{url('admin/departement')}}" class="menu-link">
+                        <div data-i18n="Basic">Departement</div>
+                      </a>
+                      </li>
               </ul>
               </li>
           </ul>
@@ -260,11 +215,11 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
             <!-- Cards -->
             <li class="menu-item {{ $title === 'Mahasiswa' ? 'active' : '' }}">
               <a href="{{url('dosen/mahasiswa')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
+                <i class='menu-icon tf-icons bx bxs-graduation'></i>
                 <div data-i18n="Basic">Mahasiswa</div>
               </a>
             </li>
-            <li class="menu-item {{ $title === 'Logbook Bulanan' || $title === 'Logbook Empat Bulan' ? 'active' : '' }}">
+            <li class="menu-item {{ $title === 'Logbook' || $title === 'Evaluasi Empat Bulan' ? 'active' : '' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-history'></i>
                 <div data-i18n="Authentications">Histori Logbook</div>
@@ -277,30 +232,30 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                 </li>
                 <li class="menu-item {{ $title === 'Logbook Empat Bulan' ? 'active' : '' }}">
                 <a href="{{url('dosen/logbook-empat-bulan')}}" class="menu-link">
-                  <div data-i18n="Basic">Logbook Empat Bulan</div>
+                  <div data-i18n="Basic">Evaluasi Empat Bulan</div>
                 </a>
                 </li>
               </ul>
               </li>
           </ul>
-              @elseif(Auth::user()->role == 'departement_head')
+              @elseif(Auth::user()->role == 'departement')
               <ul class="menu-inner py-1">
                 <!-- Dashboard -->
                 <li class="menu-item {{ $title === 'Dashboard' ? 'active' : '' }}">
-                  <a href="{{url('departement-head/dashboard')}}" class="menu-link">
+                  <a href="{{url('departement/dashboard')}}" class="menu-link">
                     <i class="menu-icon tf-icons bx bxs-dashboard"></i>
                     <div data-i18n="Analytics">Dashboard</div>
                   </a>
                 </li>
                 <!-- Cards -->
                 <li class="menu-item {{ $title === 'Mahasiswa' ? 'active' : '' }}">
-                  <a href="{{url('departement-head/mahasiswa')}}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-user"></i>
+                  <a href="{{url('departement/mahasiswa')}}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bxs-graduation'></i>
                     <div data-i18n="Basic">Mahasiswa</div>
                   </a>
                 </li>
                 <li class="menu-item {{ $title === 'Logbook Empat Bulan' ? 'active' : '' }}">
-                  <a href="{{url('departement-head/history-logbook')}}" class="menu-link">
+                  <a href="{{url('departement/history-logbook')}}" class="menu-link">
                     <i class='menu-icon tf-icons bx bx-history'></i>
                     <div data-i18n="Basic">History Logbook</div>
                   </a>
@@ -355,12 +310,12 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="{{asset('assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-semibold d-block">{{Auth::user()->nama}}</span>
+                            <small class="text-muted">{{Auth::user()->role}}</small>
                           </div>
                         </div>
                       </a>
@@ -393,7 +348,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
+                      <a class="dropdown-item" href="{{url('logout')}}">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>

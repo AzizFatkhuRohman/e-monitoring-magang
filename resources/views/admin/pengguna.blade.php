@@ -5,7 +5,7 @@
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
+            {{ $error }}
             @endforeach
         </ul>
     </div>
@@ -46,7 +46,7 @@
     <div class="card shadow p-3 mb-5 rounded border">
         <div class="card-header d-flex justify-content-between">
             <h5>Table {{$title}}</h5>
-            <div>
+            <div class="d-flex">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ImportModal">
                     <i class='bx bx-import'></i>
@@ -59,16 +59,18 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Import Data</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    style="margin-right:2px"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{url('')}}" method="post">
+                                <form action="{{url('admin/pengguna/import')}}" method="post"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="formFile" class="form-label">Upload file</label>
-                                        <input class="form-control" type="file" id="formFile">
-                                        <div id="emailHelp" class="form-text">Format file wajib xls atau xlsx.
+                                        <input class="form-control" type="file" name="file" id="formFile" required>
+                                        <div id="emailHelp" class="form-text">Format file wajib xls atau xlsx. <a
+                                                href="{{url('admin/pengguna/unduh-template')}}"> Unduh disini</a>
                                         </div>
                                     </div>
                             </div>
@@ -101,27 +103,28 @@
                                         <div class="col-6">
                                             <label for="exampleFormControlInput1" class="form-label">Nama</label>
                                             <input type="text" class="form-control" id="exampleFormControlInput1"
-                                                name="nama">
+                                                name="nama" required>
                                         </div>
                                         <div class="col-6">
                                             <label for="exampleFormControlInput1" class="form-label">Nomor Induk
                                             </label>
                                             <input type="number" class="form-control" id="exampleFormControlInput1"
-                                                name="nomor_induk">
+                                                name="nomor_induk" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-6">
                                             <label for="exampleFormControlInput1" class="form-label">Email</label>
                                             <input type="email" class="form-control" id="exampleFormControlInput1"
-                                                name="email">
+                                                name="email" required>
                                         </div>
                                         <div class="col-6">
                                             <label for="exampleFormControlInput1" class="form-label">Role</label>
-                                            <select class="form-select" aria-label="Default select example" name="role">
-                                                <option value="departement_head">departement_head</option>
-                                                <option value="section_head">section_head</option>
-                                                <option value="mentor_vokasi">mentor_vokasi</option>
+                                            <select class="form-select" aria-label="Default select example" name="role"
+                                                required>
+                                                <option value="departement">departement</option>
+                                                <option value="section">section</option>
+                                                <option value="mentor">mentor</option>
                                                 <option value="mahasiswa">mahasiswa</option>
                                             </select>
                                         </div>
@@ -163,7 +166,7 @@
                         <td>
                             <div class="d-flex">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#t{{$item->id}}">
                                     <i class='bx bx-edit'></i>
                                 </button>
@@ -188,15 +191,15 @@
                                                                 class="form-label">Nama</label>
                                                             <input type="text" class="form-control"
                                                                 id="exampleFormControlInput1" name="nama"
-                                                                value="{{$item->nama}}">
+                                                                value="{{$item->nama}}" required>
                                                         </div>
                                                         <div class="col-6">
                                                             <label for="exampleFormControlInput1"
                                                                 class="form-label">Nomor Induk
                                                             </label>
-                                                            <input type="number" class="form-control"
+                                                            <input type="text" class="form-control"
                                                                 id="exampleFormControlInput1" name="nomor_induk"
-                                                                value="{{$item->nomor_induk}}">
+                                                                value="{{$item->nomor_induk}}" required>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -205,35 +208,35 @@
                                                                 class="form-label">Email</label>
                                                             <input type="email" class="form-control"
                                                                 id="exampleFormControlInput1" name="email"
-                                                                value="{{$item->email}}">
+                                                                value="{{$item->email}}" required>
                                                         </div>
                                                         <div class="col-6">
                                                             <label for="exampleFormControlInput1"
                                                                 class="form-label">Role</label>
                                                             <select class="form-select"
-                                                                aria-label="Default select example" name="role">
+                                                                aria-label="Default select example" name="role" required>
                                                                 <option value="{{$item->role}}">{{$item->role}}</option>
-                                                                <option value="departement_head">departement_head
+                                                                <option value="departement">departement
                                                                 </option>
-                                                                <option value="section_head">section_head</option>
-                                                                <option value="mentor_vokasi">mentor_vokasi</option>
+                                                                <option value="section">section</option>
+                                                                <option value="mentor">mentor</option>
                                                                 <option value="mahasiswa">mahasiswa</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                             </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                                <form action="{{url('admin/dosen-pembimbing/'.$item->id)}}" method="post" id="hpsD">
+                                <form action="{{url('admin/pengguna/'.$item->id)}}" method="post" id="hpsD">
                                     @csrf
                                     @method('delete')
-                                    <button class="btn btn-outline-primary btn-sm" type="button"
-                                        style="margin-left: 2px" onclick="btnD()"><i class='bx bx-trash'></i></button>
+                                    <button class="btn btn-danger btn-sm" type="button" style="margin-left: 2px"
+                                        onclick="btnD()"><i class='bx bx-trash'></i></button>
                                 </form>
                             </div>
                         </td>

@@ -2,13 +2,10 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DepartementController;
-use App\Http\Controllers\DepartementHeadController;
-use App\Http\Controllers\DosenPembimbingController;
-use App\Http\Controllers\GrupLeaderController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\MentorVokasiController;
+use App\Http\Controllers\MentorController;
 use App\Http\Controllers\SectionController;
-use App\Http\Controllers\SectionHeadController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,11 +16,11 @@ Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::post('/', [UserController::class, 'postLogin'])->name('login');
 //Admin
 Route::middleware('auth')->group(function () {
-    Route::middleware('Role:departement_head')->group(function () {
-        Route::prefix('departement-head')->group(function () {
-            Route::get('dashboard', [Controller::class, 'departement_head']);
-            Route::prefix('mahasiswa')->group(function(){
-                Route::get('/',[MahasiswaController::class,'mhsfordept']);
+    Route::middleware('Role:departement')->group(function () {
+        Route::prefix('departement')->group(function () {
+            Route::get('dashboard', [Controller::class, 'departement']);
+            Route::prefix('mahasiswa')->group(function () {
+                Route::get('/', [MahasiswaController::class, 'mhsfordept']);
             });
         });
     });
@@ -36,18 +33,19 @@ Route::middleware('auth')->group(function () {
     Route::middleware('Role:admin')->group(function () {
         Route::prefix('admin')->group(function () {
             Route::get('dashboard', [Controller::class, 'admin']);
-            Route::get('pengguna', [UserController::class, 'pengguna']);
+            Route::prefix('pengguna')->group(function () {
+                Route::get('/', [UserController::class, 'pengguna']);
+                Route::post('/', [UserController::class, 'add_pengguna']);
+                Route::get('unduh-template', [UserController::class, 'unduh_template']);
+                Route::post('import', [UserController::class, 'import']);
+                Route::put('{id}', [UserController::class, 'edit_pengguna']);
+                Route::delete('{id}', [UserController::class, 'hapus_pengguna']);
+            });
             Route::prefix('departement')->group(function () {
                 Route::get('/', [DepartementController::class, 'departement']);
                 Route::post('/', [DepartementController::class, 'add_departement']);
                 Route::put('{id}', [DepartementController::class, 'edit_departement']);
                 Route::delete('{id}', [DepartementController::class, 'delete_departement']);
-            });
-            Route::prefix('departement-head')->group(function () {
-                Route::get('/', [DepartementHeadController::class, 'departement_head']);
-                Route::post('/', [DepartementHeadController::class, 'add_departement_head']);
-                Route::put('{id}', [DepartementHeadController::class, 'edit_departement_head']);
-                Route::delete('{id}', [DepartementHeadController::class, 'delete_departement_head']);
             });
             Route::prefix('section')->group(function () {
                 Route::get('/', [SectionController::class, 'section']);
@@ -55,29 +53,17 @@ Route::middleware('auth')->group(function () {
                 Route::put('{id}', [SectionController::class, 'edit_section']);
                 Route::delete('{id}', [SectionController::class, 'delete_section']);
             });
-            Route::prefix('section-head')->group(function () {
-                Route::get('/', [SectionHeadController::class, 'section_head']);
-                Route::post('/', [SectionHeadController::class, 'add_section_head']);
-                Route::put('{id}', [SectionHeadController::class, 'edit_section_head']);
-                Route::delete('{id}', [SectionHeadController::class, 'delete_section_head']);
+            Route::prefix('mentor')->group(function () {
+                Route::get('/', [MentorController::class, 'mentor']);
+                Route::post('/', [MentorController::class, 'add_mentor']);
+                Route::put('{id}', [MentorController::class, 'edit_mentor']);
+                Route::delete('{id}', [MentorController::class, 'delete_mentor']);
             });
-            Route::prefix('grup-leader')->group(function () {
-                Route::get('/', [GrupLeaderController::class, 'grup_leader']);
-                Route::post('/', [GrupLeaderController::class, 'add_grup_leader']);
-                Route::put('{id}', [GrupLeaderController::class, 'edit_grup_leader']);
-                Route::delete('{id}', [GrupLeaderController::class, 'delete_grup_leader']);
-            });
-            Route::prefix('mentor-vokasi')->group(function () {
-                Route::get('/', [MentorVokasiController::class, 'mentor']);
-                Route::post('/', [MentorVokasiController::class, 'add_mentor']);
-                Route::put('{id}', [MentorVokasiController::class, 'edit_mentor']);
-                Route::delete('{id}', [MentorVokasiController::class, 'delete_mentor']);
-            });
-            Route::prefix('dosen-pembimbing')->group(function () {
-                Route::get('/', [DosenPembimbingController::class, 'dosen']);
-                Route::post('/', [DosenPembimbingController::class, 'add_dosen']);
-                Route::put('{id}', [DosenPembimbingController::class, 'edit_dosen']);
-                Route::delete('{id}', [DosenPembimbingController::class, 'delete_dosen']);
+            Route::prefix('dosen')->group(function () {
+                Route::get('/', [DosenController::class, 'dosen']);
+                Route::post('/', [DosenController::class, 'add_dosen']);
+                Route::put('{id}', [DosenController::class, 'edit_dosen']);
+                Route::delete('{id}', [DosenController::class, 'delete_dosen']);
             });
             Route::prefix('mahasiswa')->group(function () {
                 Route::get('/', [MahasiswaController::class, 'mahasiswa']);

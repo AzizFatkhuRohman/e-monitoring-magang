@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,9 +14,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('nomor_induk');
             $table->string('nama');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->enum('role',['admin','departement','section','mahasiswa'])->default('mahasiswa');
+            $table->enum('role', ['admin', 'departement', 'section', 'mahasiswa', 'mentor', 'dosen'])->default('mahasiswa');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

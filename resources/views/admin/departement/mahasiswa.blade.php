@@ -149,9 +149,9 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Departement</th>
                             <th scope="col">Nama</th>
-                            <th scope="col">Lokasi</th>
+                            <th scope="col">Section</th>
+                            <th scope="col">Mentor</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -162,13 +162,13 @@
                         @foreach ($data as $item)
                         <tr>
                             <th scope="row">{{$no++}}</th>
-                            <td>{{$item->departement->departement}}</td>
-                            <td>{{$item->nama_departement_head}}</td>
-                            <td>{{$item->lokasi}}</td>
+                            <td>{{$item->user->nama}}</td>
+                            <td>{{$item->mentor->section->section}} | {{$item->mentor->section->user->nama}}</td>
+                            <td>{{$item->mentor->user->nama}}</td>
                             <td>
                                 <div class="d-flex">
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#modal{{$item->id}}">
                                         <i class='bx bxs-edit'></i>
                                     </button>
@@ -252,7 +252,7 @@
                                         id="departement_head">
                                         @csrf
                                         @method('delete')
-                                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                        <button type="button" class="btn btn-danger btn-sm"
                                             onclick="ClickdHead()" style="margin-left: 2px"><i
                                                 class='bx bx-trash'></i></button>
                                     </form>

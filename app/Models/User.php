@@ -56,12 +56,17 @@ class User extends Authenticatable
     public function dosen(){
         return $this->hasOne(Dosen::class);
     }
-    public function Post($data)
-    {
-        return $this->create($data);
-    }
-    public function Show()
+    public function Tampil()
     {
         return $this->latest()->get();
+    }
+    public function Tambah($data){
+        return $this->create($data);
+    }
+    public function Ubah($id,$data){
+        return $this->find($id)->update($data);
+    }
+    public function Hapus($id){
+        return $this->find($id)->delete();
     }
 }

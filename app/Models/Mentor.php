@@ -31,4 +31,20 @@ class Mentor extends Model
     {
         return $this->hasMany(Mahasiswa::class);
     }
+    public function Tampil()
+    {
+        return $this->with('user', 'section')->latest()->get();
+    }
+    public function Tambah($data)
+    {
+        return $this->create($data);
+    }
+    public function Ubah($data, $id)
+    {
+        return $this->find($id)->update($data);
+    }
+    public function Hapus($id)
+    {
+        return $this->find($id)->delete();
+    }
 }

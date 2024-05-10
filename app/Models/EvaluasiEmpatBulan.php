@@ -35,4 +35,13 @@ class EvaluasiEmpatBulan extends Model
     {
         return $this->belongsTo(Departement::class);
     }
+    public function Tambah($data){
+        return $this->create($data);
+    }
+    public function Ubah($data,$id){
+        return $this->find($id)->update($data);
+    }
+    public function Hapus($id){
+        return $this->find($id)->delete();
+    }
 }

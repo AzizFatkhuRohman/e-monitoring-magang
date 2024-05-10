@@ -25,5 +25,17 @@ class Absensi extends Model
     {
         return $this->hasMany(EvaluasiEmpatBulan::class);
     }
+    public function Tampil(){
+        return $this->with('mahasiswa')->latest()->get();
+    }
+    public function Tambah($data){
+        return $this->create($data);
+    }
+    public function Ubah($data,$id){
+        return $this->find($id)->update($data);
+    }
+    public function Hapus($id){
+        return $this->find($id)->delete();
+    }
 
 }
