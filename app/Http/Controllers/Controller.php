@@ -129,19 +129,16 @@ class Controller extends BaseController
             // Simpan jumlah absensi ke array
             $jumlahAbsensiPerMinggu["Minggu $minggu"] = $jumlahAbsensi;
         }
-        $lokasi = Departement::with('mentors.students')
-        ->get()
-        ->map(function ($departemen) {
-            return [
-                'lokasi' => $departemen->nama,
-                'total' => $departemen->mentors->sum(function ($mentor) {
-                    return $mentor->students->count();
-                })
-            ];
-        })
-        ->pluck('total', 'lokasi');
-        return view('admin.index', compact('title', 'mahasiswa', 'mentor', 
-        'section', 'departement', 'jumlahAbsensiPerMinggu','lokasi'));
+        
+        return view('admin.index', compact(
+            'title',
+            'mahasiswa',
+            'mentor',
+            'section',
+            'departement',
+            'jumlahAbsensiPerMinggu'
+        )
+        );
     }
     public function departement()
     {

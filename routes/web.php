@@ -46,30 +46,35 @@ Route::middleware('auth')->group(function () {
                 Route::post('/', [DepartementController::class, 'add_departement']);
                 Route::put('{id}', [DepartementController::class, 'edit_departement']);
                 Route::delete('{id}', [DepartementController::class, 'delete_departement']);
+                Route::get('{id}', [DepartementController::class, 'detail_departement']);
             });
             Route::prefix('section')->group(function () {
                 Route::get('/', [SectionController::class, 'section']);
                 Route::post('/', [SectionController::class, 'add_section']);
                 Route::put('{id}', [SectionController::class, 'edit_section']);
                 Route::delete('{id}', [SectionController::class, 'delete_section']);
+                Route::get('{id}', [SectionController::class, 'detail_section']);
             });
             Route::prefix('mentor')->group(function () {
                 Route::get('/', [MentorController::class, 'mentor']);
                 Route::post('/', [MentorController::class, 'add_mentor']);
                 Route::put('{id}', [MentorController::class, 'edit_mentor']);
                 Route::delete('{id}', [MentorController::class, 'delete_mentor']);
+                Route::get('{id}', [MentorController::class, 'detail_mentor']);
             });
             Route::prefix('dosen')->group(function () {
                 Route::get('/', [DosenController::class, 'dosen']);
                 Route::post('/', [DosenController::class, 'add_dosen']);
                 Route::put('{id}', [DosenController::class, 'edit_dosen']);
                 Route::delete('{id}', [DosenController::class, 'delete_dosen']);
+                Route::get('{id}', [DosenController::class, 'detail_dosen']);
             });
             Route::prefix('mahasiswa')->group(function () {
                 Route::get('/', [MahasiswaController::class, 'mahasiswa']);
                 Route::post('/', [MahasiswaController::class, 'add_mahasiswa']);
                 Route::put('{id}', [MahasiswaController::class, 'edit_mahasiswa']);
                 Route::delete('{id}', [MahasiswaController::class, 'delete_mahasiswa']);
+                Route::get('{id}', [MahasiswaController::class, 'detail_mahasiswa']);
             });
         });
     });

@@ -49,7 +49,7 @@
             <div class="d-flex">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ImportModal">
-                    <i class='bx bx-import'></i>
+                    <i class='bx bx-import' style="margin-right: 2px"></i>
                 </button>
 
                 <!-- Modal -->
@@ -214,7 +214,8 @@
                                                             <label for="exampleFormControlInput1"
                                                                 class="form-label">Role</label>
                                                             <select class="form-select"
-                                                                aria-label="Default select example" name="role" required>
+                                                                aria-label="Default select example" name="role"
+                                                                required>
                                                                 <option value="{{$item->role}}">{{$item->role}}</option>
                                                                 <option value="departement">departement
                                                                 </option>

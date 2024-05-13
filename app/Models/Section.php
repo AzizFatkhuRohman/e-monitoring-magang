@@ -24,10 +24,13 @@ class Section extends Model
     {
         return $this->hasMany(Mentor::class);
     }
+    public function Tampil(){
+        return $this->with('user','departement')->latest()->get();
+    }
     public function Tambah($data){
         return $this->create($data);
     }
-    public function Ubah($data,$id){
+    public function Ubah($id,$data){
         return $this->find($id)->update($data);
     }
     public function Hapus($id){

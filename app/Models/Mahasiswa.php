@@ -15,6 +15,7 @@ class Mahasiswa extends Model
         'user_id',
         'mentor_id',
         'noreg_vokasi',
+        'nim',
         'batch',
         'divisi',
         'shop',
@@ -22,12 +23,16 @@ class Mahasiswa extends Model
         'pos',
         'shift'
     ];
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
     public function mentor()
     {
         return $this->belongsTo(Mentor::class);
+    }
+    public function dosen(){
+        return $this->belongsTo(Dosen::class);
     }
     public function absensi()
     {
@@ -37,35 +42,48 @@ class Mahasiswa extends Model
     {
         return $this->hasMany(Logbook::class);
     }
-    public function Tampil(){
-        return $this->with('user','mentor','absensi')->latest()->get();
+    public function Tampil()
+    {
+        return $this->with('user','dosen', 'mentor', 'absensi')->latest()->get();
     }
-    public function WhereDept(){
+    public function WhereDept()
+    {
         $departemen_id = Auth::user()->id;
 
-    // Ambil data mahasiswa yang memiliki relasi dengan departemen yang sedang login
-    return $this->with(['mentor' => function($query) use ($departemen_id) {
-                        $query->whereHas('section', function($query) use ($departemen_id) {
-                            $query->where('departement_id', $departemen_id);
-                        });
-                    }, 'absensi'])
-                ->latest()
-                ->get();
+        // Ambil data mahasiswa yang memiliki relasi dengan departemen yang sedang login
+        return $this->with([
+            'mentor' => function ($query) use ($departemen_id) {
+                $query->whereHas('section', function ($query) use ($departemen_id) {
+                    $query->where('departement_id', $departemen_id);
+                });
+            },
+            'absensi'
+        ])
+            ->latest()
+            ->get();
     }
-    public function WhereDosen(){
-        return $this->with('user','mentor','absensi')->where('dosen_id',Auth::user()->id)->latest()->get();
+    public function WhereDosen($id)
+    {
+        return $this->with('user', 'mentor')->where('dosen_id', $id)->latest()->get();
     }
-    public function Tambah($data){
+    public function Tambah($data)
+    {
         return $this->create($data);
     }
-    public function Ubah($data,$id){
+    public function Ubah($id,$data)
+    {
         return $this->find($id)->update($data);
     }
-    public function Hapus($id){
+    public function Hapus($id)
+    {
         return $this->find($id)->delete();
     }
-    public function Batch(){
+    public function Batch()
+    {
         return $this->distinct()->pluck('batch');
+    }
+    public function Detail($id){
+        return $this->with('logbook','absensi')->find($id);
     }
 
 }

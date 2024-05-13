@@ -19,6 +19,9 @@ class Dosen extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function mahasiswa(){
+        return $this->hasMany(Mahasiswa::class);
+    }
     public function Tampil()
     {
         return $this->with('user')->latest()->get();

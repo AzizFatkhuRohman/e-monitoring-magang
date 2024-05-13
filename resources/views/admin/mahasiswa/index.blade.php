@@ -72,8 +72,8 @@
                                             @foreach ($batch as $b)
                                             <option value="{{$b}}">{{$b}}</option>
                                             @endforeach
-                                          </select>
-                                      </div>
+                                        </select>
+                                    </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -92,6 +92,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Nama</th>
                             <th scope="col">No Registrasi</th>
+                            <th scope="col">Departement</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -104,10 +105,12 @@
                             <th scope="row">{{$no++}}</th>
                             <td>{{$item->user->nama}} - {{$item->user->nomor_induk}}</td>
                             <td>{{$item->noreg_vokasi}}</td>
+                            <td>{{$item->mentor->section->departement->departement}} -
+                                {{$item->mentor->section->departement->user->nama}}</td>
                             <td>
                                 <div class="d-flex">
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#modal{{$item->id}}">
                                         <i class='bx bx-edit'></i>
                                     </button>
@@ -127,22 +130,23 @@
                                                         @csrf
                                                         @method('put')
                                                         <div class="row">
+                                                            <input type="text" name="user_id" value="{{$item->user_id}}"
+                                                                hidden>
                                                             <div class="col-6">
                                                                 <label for="exampleFormControlInput1"
                                                                     class="form-label">Nama
                                                                     Mahasiswa</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="exampleFormControlInput1" name="nama_mahasiswa"
-                                                                    value="{{$item->nama_mahasiswa}}">
+                                                                    id="exampleFormControlInput1" name="nama"
+                                                                    value="{{$item->user->nama}}" required>
                                                             </div>
                                                             <div class="col-6">
                                                                 <label for="exampleFormControlInput1"
                                                                     class="form-label">Nomor Induk
                                                                     Mahasiswa</label>
                                                                 <input type="number" class="form-control"
-                                                                    id="exampleFormControlInput1"
-                                                                    name="nomor_induk_mahasiswa"
-                                                                    value="{{$item->nomor_induk_mahasiswa}}" readonly>
+                                                                    id="exampleFormControlInput1" name="nomor_induk"
+                                                                    value="{{$item->user->nomor_induk}}" required>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -151,17 +155,16 @@
                                                                     class="form-label">No Registrasi
                                                                     Vokasi</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="exampleFormControlInput1"
-                                                                    name="no_registrasi_vokasi"
-                                                                    value="{{$item->no_registrasi_vokasi}}" readonly>
+                                                                    id="exampleFormControlInput1" name="noreg_vokasi"
+                                                                    value="{{$item->noreg_vokasi}}" required>
                                                             </div>
                                                             <div class="col-6">
                                                                 <label for="exampleFormControlInput1"
                                                                     class="form-label">Batch
                                                                     Vokasi</label>
                                                                 <input type="number" class="form-control"
-                                                                    id="exampleFormControlInput1" name="batch_vokasi"
-                                                                    value="{{$item->batch_vokasi}}">
+                                                                    id="exampleFormControlInput1" name="batch"
+                                                                    value="{{$item->batch}}" required>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -169,32 +172,14 @@
                                                                 <label for="exampleFormControlInput1"
                                                                     class="form-label">Nama Mentor</label>
                                                                 <select class="form-select"
-                                                                    aria-label="Default select example"
-                                                                    name="nama_mentor">
-                                                                    <option value="{{$item->mentor_vokasi_id}}">
-                                                                        {{$item->mentorVokasi->nama_mentor_vokasi}} -
-                                                                        {{$item->mentorVokasi->grupLeader->nama_grup_leader}}
-                                                                        -
-                                                                        {{$item->mentorVokasi->grupLeader->sectionHead->section->section}}
-                                                                        -
-                                                                        {{$item->mentorVokasi->grupLeader->sectionHead->nama_section_head}}
-                                                                        -
-                                                                        {{$item->mentorVokasi->grupLeader->sectionHead->departementHead->departement->departement}}
-                                                                        -
-                                                                        {{$item->mentorVokasi->grupLeader->sectionHead->departementHead->nama_departement_head}}
-                                                                        -
-                                                                        {{$item->mentorVokasi->grupLeader->sectionHead->departementHead->lokasi}}
+                                                                    aria-label="Default select example" name="mentor"
+                                                                    required>
+                                                                    <option value="{{$item->mentor_id}}">
+                                                                        {{$item->mentor->user->nama}}
                                                                     </option>
                                                                     @foreach ($mentor as $m)
                                                                     <option value="{{$m->id}}">
-                                                                        {{$m->nama_mentor_vokasi}}
-                                                                        - {{$m->grupLeader->nama_grup_leader}} -
-                                                                        {{$m->grupLeader->sectionHead->section->section}}-
-                                                                        {{$m->grupLeader->sectionHead->nama_section_head}}-{{$m->grupLeader->sectionHead->departementHead->departement->departement}}
-                                                                        -
-                                                                        {{$m->grupLeader->sectionHead->departementHead->nama_departement_head}}
-                                                                        -
-                                                                        {{$m->grupLeader->sectionHead->departementHead->lokasi}}
+                                                                        {{$m->user->nama}}
                                                                     </option>
                                                                     @endforeach
                                                                 </select>
@@ -204,7 +189,7 @@
                                                                     class="form-label">Shop</label>
                                                                 <input type="text" class="form-control"
                                                                     id="exampleFormControlInput1" name="shop"
-                                                                    value="{{$item->shop}}">
+                                                                    value="{{$item->shop}}" required>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -213,14 +198,14 @@
                                                                     class="form-label">Divisi</label>
                                                                 <input type="text" class="form-control"
                                                                     id="exampleFormControlInput1" name="divisi"
-                                                                    value="{{$item->divisi}}">
+                                                                    value="{{$item->divisi}}" required>
                                                             </div>
                                                             <div class="col-6">
                                                                 <label for="exampleFormControlInput1"
                                                                     class="form-label">Line</label>
                                                                 <input type="text" class="form-control"
                                                                     id="exampleFormControlInput1" name="line"
-                                                                    value="{{$item->line}}">
+                                                                    value="{{$item->line}}" required>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -229,13 +214,14 @@
                                                                     class="form-label">Pos/Proses</label>
                                                                 <input type="text" class="form-control"
                                                                     id="exampleFormControlInput1" name="pos"
-                                                                    value="{{$item->pos}}">
+                                                                    value="{{$item->pos}}" required>
                                                             </div>
                                                             <div class="col-6">
                                                                 <label for="exampleFormControlInput1"
                                                                     class="form-label">Shift</label>
                                                                 <select class="form-select"
-                                                                    aria-label="Default select example" name="shift">
+                                                                    aria-label="Default select example" name="shift"
+                                                                    required>
                                                                     <option value="{{$item->shift}}">{{$item->shift}}
                                                                     </option>
                                                                     <option value="Red">Red</option>
@@ -248,13 +234,14 @@
                                                                 class="form-label">Dosen
                                                                 Pembimbing</label>
                                                             <select class="form-select"
-                                                                aria-label="Default select example"
-                                                                name="dosen_pembimbing">
-                                                                <option value="{{$item->dosen_pembimbing_id}}">
-                                                                    {{$item->dosenPembimbing->nama_dosen}}</option>
+                                                                aria-label="Default select example" name="dosen"
+                                                                required>
+                                                                <option value="{{$item->dosen_id}}">
+                                                                    {{$item->dosen->user->nama}} -
+                                                                    {{$item->dosen->user->nomor_induk}}</option>
                                                                 @foreach ($dosen as $d)
-                                                                <option value="{{$d->id}}">{{$d->nama_dosen}} -
-                                                                    {{$d->nomor_induk_pegawai}}</option>
+                                                                <option value="{{$d->id}}">{{$d->user->nama}} -
+                                                                    {{$d->user->nomor_induk}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -266,12 +253,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <form action="{{url('admin/grup-leader/'.$item->id)}}" method="post" id="delGrup">
+                                    <form action="{{url('admin/mahasiswa/'.$item->id)}}" method="post"
+                                        id="hapusMahasiswa">
                                         @csrf
                                         @method('delete')
-                                        <button class="btn btn-outline-primary btn-sm" style="margin-left: 2px"
-                                            type="button" onclick="clickGrup()"><i class='bx bx-trash'></i></button>
+                                        <button class="btn btn-danger btn-sm" style="margin-left: 2px" type="button"
+                                            onclick="clickHM()"><i class='bx bx-trash'></i></button>
                                     </form>
+                                    <a href="{{url('admin/mahasiswa/'.$item->id)}}" class="btn btn-primary btn-sm"
+                                        target="_blank" style="margin-left: 2px" rel="noopener noreferrer">
+                                        <i class='bx bxs-detail'></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -282,4 +274,23 @@
         </div>
     </div>
 </div>
+<script>
+    function clickHM() {
+      Swal.fire({
+          title: 'Konfirmasi',
+          text: 'Apakah Anda yakin ingin menghapus ini?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Hapus!',
+          cancelButtonText: 'Batal'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              document.getElementById('hapusMahasiswa').submit();
+          }
+      });
+      
+  }
+</script>
 @endsection

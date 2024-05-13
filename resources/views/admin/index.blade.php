@@ -158,7 +158,7 @@
         }
     });
 </script>
-<script>
+{{-- <script>
     var ctx = document.getElementById('lokasiChart').getContext('2d');
     var lokasiData = @json($lokasi);
 
@@ -197,5 +197,5 @@
             maintainAspectRatio: false
         }
     });
-</script>
+</script> --}}
 @endsection

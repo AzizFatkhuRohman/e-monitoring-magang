@@ -63,8 +63,8 @@ class User extends Authenticatable
     public function Tambah($data){
         return $this->create($data);
     }
-    public function Ubah($id,$data){
-        return $this->find($id)->update($data);
+    public function Ubah($user_id,$data){
+        return $this->where('id',$user_id)->update($data);
     }
     public function Hapus($id){
         return $this->find($id)->delete();

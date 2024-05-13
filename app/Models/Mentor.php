@@ -39,7 +39,7 @@ class Mentor extends Model
     {
         return $this->create($data);
     }
-    public function Ubah($data, $id)
+    public function Ubah($id, $data)
     {
         return $this->find($id)->update($data);
     }
