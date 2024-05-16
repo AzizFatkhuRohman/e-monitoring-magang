@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Mentor extends Model
 {
@@ -46,5 +47,24 @@ class Mentor extends Model
     public function Hapus($id)
     {
         return $this->find($id)->delete();
+    }
+    public function show()
+    {
+        return $this->with('user')->where('user_id', Auth::user()->id)->latest()->get();
+    }
+
+    public function showAll()
+    {
+        return $this->with('user')->latest()->get();
+    }
+
+    public function post($data)
+    {
+        return $this->create($data);
+    }
+
+    public static function put($id, $data)
+    {
+        return Mentor::find($id)->update($data);
     }
 }

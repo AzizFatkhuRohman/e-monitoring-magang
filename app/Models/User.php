@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -50,6 +51,10 @@ class User extends Authenticatable
     public function section(){
         return $this->hasOne(Section::class);
     }
+    public function mentor()
+    {
+        return $this->belongsTo(Mentor::class);
+    }
     public function mahasiswa(){
         return $this->hasOne(Mahasiswa::class);
     }
@@ -68,5 +73,16 @@ class User extends Authenticatable
     }
     public function Hapus($id){
         return $this->find($id)->delete();
+    }
+    public function LoginModel($data) {
+        return Auth::attempt($data);
+    }
+
+    public static function role($data) {
+        return static::where('nomor_induk', $data)->first()->role;
+    }
+
+    public static function put($id, $data) {
+        return User::find($id)->update($data);
     }
 }

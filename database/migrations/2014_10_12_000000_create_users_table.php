@@ -16,6 +16,9 @@ return new class extends Migration {
             $table->string('nama');
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('no_telp')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('foto_profile')->nullable();
             $table->enum('role', ['admin', 'departement', 'section', 'mahasiswa', 'mentor', 'dosen'])->default('mahasiswa');
             $table->string('password');
             $table->rememberToken();

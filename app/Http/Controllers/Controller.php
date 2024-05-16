@@ -8,6 +8,7 @@ use App\Models\LogBook;
 use App\Models\Mahasiswa;
 use App\Models\Mentor;
 use App\Models\Section;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -129,21 +130,74 @@ class Controller extends BaseController
             // Simpan jumlah absensi ke array
             $jumlahAbsensiPerMinggu["Minggu $minggu"] = $jumlahAbsensi;
         }
-        
-        return view('admin.index', compact(
-            'title',
-            'mahasiswa',
-            'mentor',
-            'section',
-            'departement',
-            'jumlahAbsensiPerMinggu'
-        )
+
+        return view(
+            'admin.index',
+            compact(
+                'title',
+                'mahasiswa',
+                'mentor',
+                'section',
+                'departement',
+                'jumlahAbsensiPerMinggu'
+            )
         );
     }
     public function departement()
     {
         $title = 'Dashboard';
+        $user_id = Auth::user()->id;
 
-        return view('departement.index', compact('title'));
+        // Ambil departemen pengguna yang login
+        $departemen = Departement::where('user_id', $user_id)->first();
+        $departemen_id = $departemen->id;
+
+        // Hitung jumlah mahasiswa yang terkait dengan departemen pengguna yang login
+        $mahasiswa = Mahasiswa::whereHas('mentor.section.departement', function ($query) use ($departemen_id) {
+            $query->where('departement_id', $departemen_id);
+        })->count();
+
+        // Hitung jumlah mentor yang terkait dengan departemen pengguna yang login
+        $mentor = Mentor::whereHas('section.departement', function ($query) use ($departemen_id) {
+            $query->where('departement_id', $departemen_id);
+        })->count();
+
+        // Hitung jumlah section yang terkait dengan departemen pengguna yang login
+        $section = Section::where('departement_id', $departemen_id)->count();
+        // Chart Absensi
+        $tahun = date('Y');
+        $bulan = date('m');
+
+        // Array untuk menyimpan hasil jumlah absensi setiap minggu
+        $jumlahAbsensiPerMinggu = [];
+
+        // Loop untuk setiap minggu dalam bulan ini
+        for ($minggu = 1; $minggu <= 4; $minggu++) {
+            // Mendapatkan tanggal awal dan akhir minggu
+            $tanggalAwal = date('Y-m-d', strtotime("first day of this month + " . ($minggu - 1) . " week"));
+            $tanggalAkhir = date('Y-m-d', strtotime("first day of this month + " . $minggu . " week - 1 day"));
+
+            // Query untuk menghitung jumlah absensi dengan keterangan 'hadir' untuk minggu ini
+            $jumlahAbsensi = Absensi::where('keterangan', 'hadir')
+                ->whereHas('mahasiswa.mentor.section.departement', function ($query) use ($tahun, $bulan) {
+                    $query->whereYear('created_at', $tahun)
+                        ->whereMonth('created_at', $bulan);
+                })
+                ->whereBetween('created_at', [$tanggalAwal, $tanggalAkhir])
+                ->count();
+
+            // Simpan jumlah absensi ke array
+            $jumlahAbsensiPerMinggu["Minggu $minggu"] = $jumlahAbsensi;
+        }
+        return view(
+            'departement.index',
+            compact(
+                'title',
+                'mahasiswa',
+                'mentor',
+                'section',
+                'jumlahAbsensiPerMinggu'
+            )
+        );
     }
 }
